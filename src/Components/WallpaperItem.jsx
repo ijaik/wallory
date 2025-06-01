@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import SkeletonLoading from "./SkeletonLoading";
-
 const WallpaperItem = ({ photo, onDownload }) => {
   const [isLoading, setIsLoading] = useState(true);
-
   const handleImageLoad = () => {
     setIsLoading(false);
   };
-
   const aspectRatio = (photo.height / photo.width) * 100;
-
   return (
     <div
       className="w-full inline-block p-[5px] cursor-pointer group"
-      onClick={() => onDownload(photo.links.download, photo.alt_description)}
+      onClick={() => onDownload(photo.id, photo.alt_description)}
     >
       <div className="relative" style={{ paddingTop: `${aspectRatio}%` }}>
         <SkeletonLoading isLoading={isLoading}>
@@ -51,5 +47,4 @@ const WallpaperItem = ({ photo, onDownload }) => {
     </div>
   );
 };
-
 export default React.memo(WallpaperItem);

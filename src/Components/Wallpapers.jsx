@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import WallpaperItem from "./WallpaperItem";
-
 function Wallpapers({ category }) {
   const [dataByCategory, setDataByCategory] = useState({});
   const [pageByCategory, setPageByCategory] = useState({});
@@ -9,16 +8,13 @@ function Wallpapers({ category }) {
   const [error, setError] = useState(null);
   const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
   const observer = useRef();
-
   const categoryMap = {
     Moone: "Moon",
     Sonne: "Sunset",
   };
-
   const searchCategory = categoryMap[category] || category;
   const isLatest = searchCategory.toLowerCase() === "latest";
   const latestQueries = ["moon", "sunsets", "abstract", "artworks"];
-
   useEffect(() => {
     const queries = isLatest ? latestQueries : [searchCategory];
     setDataByCategory((prev) => {
@@ -44,7 +40,6 @@ function Wallpapers({ category }) {
       return updated;
     });
   }, [searchCategory, isLatest]);
-
   useEffect(() => {
     const fetchData = async () => {
       const queries = isLatest ? latestQueries : [searchCategory];
@@ -69,14 +64,12 @@ function Wallpapers({ category }) {
           return { query, photos: [], error: err.message };
         }
       });
-
       setLoading(true);
       setError(null);
       try {
         const results = await Promise.all(fetchPromises);
         setDataByCategory((prev) => {
           const updated = { ...prev };
-          // Update individual query caches
           results.forEach(({ query, photos }) => {
             if (photos.length > 0) {
               const existingIds = new Set(
@@ -88,7 +81,6 @@ function Wallpapers({ category }) {
               updated[query] = [...(updated[query] || []), ...newPhotos];
             }
           });
-          // Special handling for "Latest" category
           if (isLatest) {
             const allNewPhotos = results.flatMap(({ photos }) => photos);
             const currentLatest = updated["Latest"] || [];
@@ -116,8 +108,6 @@ function Wallpapers({ category }) {
     };
     fetchData();
   }, [searchCategory, pageByCategory, API_KEY, isLatest]);
-
-  // Infinite scroll observer
   const lastWallpaperRef = useCallback(
     (node) => {
       const queries = isLatest ? latestQueries : [searchCategory];
@@ -144,59 +134,41 @@ function Wallpapers({ category }) {
     },
     [loading, hasMoreByCategory, searchCategory, isLatest]
   );
-
-  // Download handler
-  // const handleDownload = useCallback(async (downloadUrl, photoDescription) => {
-  //   try {
-  //     const response = await fetch(downloadUrl);
-  //     if (!response.ok) throw new Error("Failed to initiate download");
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = `${photoDescription || `wallpaper-${Date.now()}`}.jpg`;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //     window.URL.revokeObjectURL(url);
-  //   } catch (err) {
-  //     console.error("Download error:", err);
-  //   }
-  // }, []);
-
-  const handleDownload = useCallback(async (downloadUrl, photoDescription) => {
-    try {
-      // Step 1: Fetch the download location to get the actual image URL
-      const response = await fetch(downloadUrl);
-      if (!response.ok) throw new Error("Failed to initiate download");
-      const data = await response.json();
-      if (!data.url) throw new Error("No download URL found in response");
-      const imageUrl = data.url;
-  
-      // Step 2: Fetch the image from the extracted URL
-      const imageResponse = await fetch(imageUrl);
-      if (!imageResponse.ok) throw new Error("Failed to download image");
-      const blob = await imageResponse.blob();
-  
-      // Step 3: Create a download link and trigger the download
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${photoDescription || `wallpaper-${Date.now()}`}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Download error:", err);
-    }
-  }, []);
-
-  // Determine current data to display
+  const handleDownload = useCallback(
+    async (photoId, photoDescription) => {
+      try {
+        const downloadUrl = `https://api.unsplash.com/photos/${photoId}/download?client_id=${API_KEY}`;
+        const response = await fetch(downloadUrl);
+        if (!response.ok) {
+          throw new Error("Failed to initiate download");
+        }
+        const data = await response.json();
+        if (!data.url) {
+          throw new Error("No download URL found in response");
+        }
+        const imageUrl = data.url;
+        const imageResponse = await fetch(imageUrl);
+        if (!imageResponse.ok) {
+          throw new Error("Failed to download image");
+        }
+        const blob = await imageResponse.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${photoDescription || `wallpaper-${Date.now()}`}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error("Download error:", err);
+      }
+    },
+    [API_KEY]
+  );
   const currentData = isLatest
     ? dataByCategory["Latest"] || []
     : dataByCategory[searchCategory] || [];
-
   return (
     <>
       {loading && currentData.length === 0 ? (
@@ -242,5 +214,4 @@ function Wallpapers({ category }) {
     </>
   );
 }
-
 export default Wallpapers;
