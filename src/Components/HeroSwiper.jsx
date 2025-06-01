@@ -5,13 +5,11 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
 import SkeletonLoading from "./SkeletonLoading";
-
 function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
   const fallbackImages = [
     "https://images.unsplash.com/photo-1503416997304-7f8bf166c121",
     "https://images.unsplash.com/photo-1495616811223-4d98c6e9c869",
   ];
-
   const slideSlogans = [
     "Your Space, Your Vision",
     "Craft Your Dream Wall",
@@ -19,10 +17,8 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
     "Shape Your Unique Story",
     "Design Your Perfect Scene",
   ];
-
   const [images, setImages] = useState(fallbackImages);
   const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
-
   useEffect(() => {
     const fetchDailyWallpapers = async () => {
       const cacheKey = "daily_wallpapers";
@@ -65,12 +61,10 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
     };
     fetchDailyWallpapers();
   }, []);
-
   const [isLoading, setIsLoading] = useState(true);
   const handleImageLoad = () => {
     setIsLoading(false);
   };
-
   return (
     <div
       className={`flex justify-center items-center ${mb} px-[10px] overflow-hidden h-[350px]`}
@@ -99,7 +93,11 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
               </SkeletonLoading>
               {showSlogans && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <h2 className="text-white text-2xl md:text-3xl font-bold text-center px-4 drop-shadow-lg">
+                  <h2
+                    className={`dark:text-white text-2xl md:text-3xl font-bold text-center px-4 drop-shadow-lg ${
+                      isLoading ? "text-black" : "text-white"
+                    }`}
+                  >
                     {slideSlogans[index]}
                   </h2>
                 </div>
@@ -108,10 +106,8 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
           </SwiperSlide>
         ))}
       </Swiper>
-
       <div className="absolute z-20">{SearchButton && <SearchButton />}</div>
     </div>
   );
 }
-
 export default HeroSwiper;

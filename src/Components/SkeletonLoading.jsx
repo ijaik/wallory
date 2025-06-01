@@ -13,5 +13,4 @@ const SkeletonLoading = ({ isLoading, children, className = "" }) => {
     </>
   );
 };
-
 export default SkeletonLoading;

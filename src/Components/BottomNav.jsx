@@ -6,26 +6,21 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { ThemeContext } from "../Contexts/ThemeContext";
-
 gsap.registerPlugin(useGSAP);
-
 function BottomNav() {
   const location = useLocation();
   const [activeNav, setActiveNav] = useState(() => {
     return localStorage.getItem("activeNav") || "home";
   });
-
   useEffect(() => {
     const currentPath = location.pathname;
     const newActiveNav = currentPath === "/explore" ? "explore" : "home";
     setActiveNav(newActiveNav);
     localStorage.setItem("activeNav", newActiveNav);
   }, [location.pathname]);
-
   useEffect(() => {
     let lastScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;
-
     const handleScroll = () => {
       const currentScrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
@@ -36,17 +31,12 @@ function BottomNav() {
       } else {
         bottomNav.style.transform = "translateY(0)";
       }
-
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
-
   useGSAP(() => {
     gsap.from(".bottom-nav-icon", {
       y: 10,
@@ -55,7 +45,6 @@ function BottomNav() {
       stagger: 0.25,
     });
   });
-
   return (
     <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500 dark:bg-black rounded-[50px] transition-transform duration-1000 ease-out">
       <ul className="flex justify-evenly items-center">
@@ -92,5 +81,4 @@ function BottomNav() {
     </nav>
   );
 }
-
 export default BottomNav;

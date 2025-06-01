@@ -8,9 +8,10 @@ function Footer() {
         </span>{" "}
         By Jai
       </p>
-      <p className="text-[25px] text-indigo-500 font-['Leckerli_One',_cursive]">Wally</p>
+      <p className="text-[25px] text-indigo-500 font-['Leckerli_One',_cursive]">
+        Wallory
+      </p>
     </footer>
   );
 }
-
 export default Footer;

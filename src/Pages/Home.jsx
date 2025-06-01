@@ -4,7 +4,6 @@ import BottomNav from "../Components/BottomNav";
 import HeroSwiper from "../Components/HeroSwiper";
 import TabNavigationBar from "../Components/TabNavigationBar";
 import Footer from "../Components/Footer";
-
 function Home() {
   const [showToast, setShowToast] = useState(false);
   useEffect(() => {
@@ -26,7 +25,7 @@ function Home() {
           role="alert"
         >
           <div className="ms-3 text-sm font-normal text-center">
-            To Download Wallpapers, Just Simply Click On That Wallpaper.
+            To Download Wallpaper, Click On Wallpaper.
           </div>
           <button
             type="button"
@@ -63,5 +62,4 @@ function Home() {
     </>
   );
 }
-
 export default Home;

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-
 function NoPage() {
   return (
     <main className="grid h-screen place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-black">
@@ -27,5 +26,4 @@ function NoPage() {
     </main>
   );
 }
-
 export default NoPage;

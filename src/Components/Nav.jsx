@@ -1,9 +1,7 @@
 import { Link } from "react-router";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-
 gsap.registerPlugin(useGSAP);
-
 export default function Nav() {
   useGSAP(() => {
     gsap.from(".navLi", {
@@ -13,7 +11,6 @@ export default function Nav() {
       stagger: 0.5,
     });
   });
-
   return (
     <nav className="nav relative top-0 left-0 right-0">
       <ul className="flex justify-evenly items-center py-2.5 text-2xl">

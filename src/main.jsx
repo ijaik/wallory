@@ -8,7 +8,6 @@ import Explore from "./Pages/Explore.jsx";
 import NoPage from "./Pages/NoPage.jsx";
 import { ThemeProvider } from "./Contexts/ThemeContext.jsx";
 import { LenisProvider } from "./Contexts/LenisContext.jsx";
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>

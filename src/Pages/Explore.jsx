@@ -5,10 +5,8 @@ import Card from "../Components/Card";
 import Wallpapers from "../Components/Wallpapers";
 import { TiArrowBackOutline } from "react-icons/ti";
 import Footer from "../Components/Footer";
-
 function Explore() {
   const [selectedCategory, setSelectedCategory] = useState(null);
-
   const exploreCategories = [
     {
       title: "Abstract",
@@ -101,21 +99,20 @@ function Explore() {
         "https://i.pinimg.com/736x/09/73/c8/0973c8a0f497717e720e2d7c68ef012a.jpg",
     },
   ];
-
   function SearchForm({ setSelectedCategory }) {
     const [searchTerm, setSearchTerm] = useState("");
-
     const handleSearch = (e) => {
       e.preventDefault();
       if (searchTerm.trim()) {
-        // Map search terms if needed
-        const mappedSearch = searchTerm.trim() === "Moone" ? "Moon" : 
-                           searchTerm.trim() === "Sonne" ? "Sunset" : 
-                           searchTerm.trim();
+        const mappedSearch =
+          searchTerm.trim() === "Moone"
+            ? "Moon"
+            : searchTerm.trim() === "Sonne"
+            ? "Sunset"
+            : searchTerm.trim();
         setSelectedCategory(mappedSearch);
       }
     };
-
     return (
       <form
         onSubmit={handleSearch}
@@ -138,7 +135,6 @@ function Explore() {
       </form>
     );
   }
-
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-10 text-center">
@@ -147,14 +143,12 @@ function Explore() {
           Discover a variety of stunning wallpapers to personalize your device.
         </p>
       </div>
-
       <HeroSwiper
         mb={"mb-2.5"}
         SearchButton={() => (
           <SearchForm setSelectedCategory={setSelectedCategory} />
         )}
       />
-
       {selectedCategory ? (
         <>
           <div className="sticky top-0 bg-white dark:bg-black flex justify-center items-center p-2.5 z-20">
@@ -187,5 +181,4 @@ function Explore() {
     </>
   );
 }
-
 export default Explore;

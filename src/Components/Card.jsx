@@ -1,12 +1,10 @@
 import { useState } from "react";
-import SkeletonLoading from "./skeletonLoading";
-
+import SkeletonLoading from "./SkeletonLoading";
 function Card({ image, title, onClick }) {
   const [isLoading, setIsLoading] = useState(true);
   const handleImageLoad = () => {
     setIsLoading(false);
   };
-
   return (
     <div
       onClick={onClick}
@@ -37,5 +35,4 @@ function Card({ image, title, onClick }) {
     </div>
   );
 }
-
 export default Card;

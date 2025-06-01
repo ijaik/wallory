@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Wallpapers from "./Wallpapers";
-
 function TabNavigationBar({
   categories = ["Latest", "Trending", "Most Popular"],
   storageKey = "wallpapers",
@@ -10,11 +9,9 @@ function TabNavigationBar({
       localStorage.getItem(`${storageKey}_activeCategory`) || categories[0]
     );
   });
-
   useEffect(() => {
     localStorage.setItem(`${storageKey}_activeCategory`, activeCategory);
   }, [activeCategory, storageKey]);
-
   return (
     <main>
       <div className="sticky top-0 left-0 right-0 bg-white dark:bg-black z-10 p-2.5">
@@ -38,5 +35,4 @@ function TabNavigationBar({
     </main>
   );
 }
-
 export default TabNavigationBar;

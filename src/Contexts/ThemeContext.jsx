@@ -1,7 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-
 export const ThemeContext = createContext();
-
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -9,7 +7,6 @@ export const ThemeProvider = ({ children }) => {
       ? savedTheme === "dark"
       : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
-
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.setAttribute("data-theme", "dark");
@@ -19,11 +16,9 @@ export const ThemeProvider = ({ children }) => {
       localStorage.setItem("theme", "light");
     }
   }, [isDarkMode]);
-
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
-
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
       {children}
