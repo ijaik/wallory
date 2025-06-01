@@ -1,6 +1,7 @@
 {
   "name": "Wallory",
-  "short_name": "W",
+  "short_name": "Wallory",
+  "description": "Wallory is your go-to platform for discovering stunning wallpapers from Unsplash.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
