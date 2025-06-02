@@ -46,7 +46,7 @@ function BottomNav() {
     });
   });
   return (
-    <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500 dark:bg-black rounded-[50px] transition-transform duration-1000 ease-out">
+    <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500 dark:bg-black rounded-[50px] transition-all duration-250 ease-linear">
       <ul className="flex justify-evenly items-center">
         <li className="bottom-nav-icon py-[5px] px-[2.5vw]">
           <NavLink to="/" className="cursor-default sm:cursor-pointer">

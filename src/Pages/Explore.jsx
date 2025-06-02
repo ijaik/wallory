@@ -121,7 +121,7 @@ function Explore() {
         <input
           type="text"
           name="searchInput"
-          placeholder="Search Walls"
+          placeholder="Search Your Wallory"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full outline-none pl-4 text-sm placeholder:text-white"
