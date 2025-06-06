@@ -8,6 +8,16 @@ import Explore from "./Pages/Explore.jsx";
 import NoPage from "./Pages/NoPage.jsx";
 import { ThemeProvider } from "./Contexts/ThemeContext.jsx";
 import { LenisProvider } from "./Contexts/LenisContext.jsx";
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then((registration) => {
+      console.log("Service Worker registered:", registration);
+    })
+    .catch((error) => {
+      console.error("Service Worker registration failed:", error);
+    });
+}
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>

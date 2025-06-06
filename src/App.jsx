@@ -11,7 +11,7 @@ function App() {
   }, []);
   const handleIntroComplete = () => {
     localStorage.setItem("hasSeenIntro", "true");
-    setShowIntro(false);
+    window.location.reload();
   };
   return showIntro ? <Intro onComplete={handleIntroComplete} /> : <Home />;
 }

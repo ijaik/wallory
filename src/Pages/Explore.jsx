@@ -54,7 +54,7 @@ function Explore() {
         "https://i.pinimg.com/736x/b9/85/d8/b985d84b46764e10a8b2f9b081760d54.jpg",
     },
     {
-      title: "Moone", // Changed from Moon
+      title: "Moone",
       image:
         "https://i.pinimg.com/736x/0f/b5/51/0fb551c005d31e7356e259efe33edddd.jpg",
     },
@@ -74,7 +74,7 @@ function Explore() {
         "https://i.pinimg.com/736x/21/4b/73/214b736d289c1e6033915cd12110cace.jpg",
     },
     {
-      title: "Sonne", // Changed from Sunset
+      title: "Sonne",
       image:
         "https://i.pinimg.com/736x/95/b7/6e/95b76e8f39ec81ef22d90bdf509ec350.jpg",
     },

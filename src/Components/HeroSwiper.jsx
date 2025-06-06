@@ -26,10 +26,10 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
       const cachedPhotos = localStorage.getItem(cacheKey);
       const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
       const now = new Date();
-      const oneDayInMs = 24 * 60 * 60 * 1000;
+      const oneWeekInMs = 7 * 24 * 60 * 60 * 1000; // 7 days
       if (cachedPhotos && cachedTimestamp) {
         const timeDiff = now.getTime() - parseInt(cachedTimestamp, 10);
-        if (timeDiff < oneDayInMs) {
+        if (timeDiff < oneWeekInMs) {
           setImages(JSON.parse(cachedPhotos));
           return;
         }

@@ -4,57 +4,97 @@ import BottomNav from "../Components/BottomNav";
 import HeroSwiper from "../Components/HeroSwiper";
 import TabNavigationBar from "../Components/TabNavigationBar";
 import Footer from "../Components/Footer";
+import Toast from "../Components/Toast";
 function Home() {
-  const [showToast, setShowToast] = useState(false);
+  const [showDownloadToast, setShowDownloadToast] = useState(false);
+  const [showInstallToast, setShowInstallToast] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
   useEffect(() => {
-    const hasCloseToast = localStorage.getItem("hasCloseToast");
-    if (!hasCloseToast) {
-      setShowToast(true);
+    const checkIsInstalled = () => {
+      return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        navigator.standalone ||
+        window.navigator.userAgent.includes("MobileApp")
+      );
+    };
+    setIsInstalled(checkIsInstalled());
+    const hasClosedDownloadToast = localStorage.getItem(
+      "hasClosedDownloadToast"
+    );
+    const hasClosedInstallToast = localStorage.getItem("hasClosedInstallToast");
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      if (!checkIsInstalled()) {
+        setDeferredPrompt(e);
+        localStorage.setItem("isInstallable", "true");
+      }
+    };
+
+    // Handle appinstalled event
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+      localStorage.setItem("isInstallable", "false");
+      setShowInstallToast(false);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
+
+    // Show toasts based on localStorage and installation status
+    if (!hasClosedDownloadToast) {
+      setShowDownloadToast(true);
+    } else if (!hasClosedInstallToast && !checkIsInstalled()) {
+      setShowInstallToast(true);
     }
+
+    // Cleanup event listeners
+    return () => {
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt
+      );
+      window.removeEventListener("appinstalled", handleAppInstalled);
+    };
   }, []);
-  const handleCloseToast = () => {
-    localStorage.setItem("hasCloseToast", "true");
-    setShowToast(false);
+  const handleCloseDownloadToast = () => {
+    localStorage.setItem("hasClosedDownloadToast", "true");
+    setShowDownloadToast(false);
+    if (!localStorage.getItem("hasClosedInstallToast") && !isInstalled) {
+      setShowInstallToast(true);
+    }
+  };
+  const handleCloseInstallToast = () => {
+    localStorage.setItem("hasClosedInstallToast", "true");
+    setShowInstallToast(false);
+  };
+  const handleInstallClick = async () => {
+    if (deferredPrompt && deferredPrompt !== true) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        console.log("User accepted the install prompt");
+      } else {
+        console.log("User dismissed the install prompt");
+      }
+      setDeferredPrompt(null);
+      localStorage.setItem("isInstallable", "false");
+      setShowInstallToast(false);
+    }
   };
   return (
     <>
-      {showToast && (
-        <div className="fixed inset-0 bg-transparent backdrop-blur-[5px] z-40 flex items-center justify-center">
-          <div
-            id="toast-default"
-            className="flex items-center w-full ml-2.5 mr-2.5 max-w-md p-4 text-gray-700 bg-white bg-opacity-90 border border-gray-200 rounded-lg shadow-lg dark:text-gray-200 dark:bg-gray-900 dark:bg-opacity-90 dark:border-gray-700 transition-all duration-300 z-50"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div className="flex-1 text-sm font-medium text-center capitalize">
-              To download wallpaper, click on the wallpaper !
-            </div>
-            <button
-              type="button"
-              className="ml-3 p-2 rounded-lg text-gray-500 hover:text-gray-900 bg-transparent hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors duration-200"
-              onClick={handleCloseToast}
-              aria-label="Close toast notification"
-            >
-              <span className="sr-only">Close notification</span>
-              <svg
-                className="w-4 h-4"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M2 2l12 12M14 2L2 14"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+      {showDownloadToast && (
+        <Toast type="download" handleCloseToast={handleCloseDownloadToast} />
+      )}
+      {showInstallToast && !isInstalled && (
+        <Toast
+          type="install"
+          handleCloseToast={handleCloseInstallToast}
+          deferredPrompt={deferredPrompt}
+          handleInstallClick={handleInstallClick}
+        />
       )}
       <header className="flex flex-col">
         <Nav />
