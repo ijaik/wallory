@@ -164,7 +164,7 @@ const Wallpapers = React.memo(({ category }) => {
         </div>
       ) : error ? (
         <div className="text-center text-red-500 dark:text-red-400 py-6">
-          <p>Error: {error}</p>
+          <p>{error}</p>
           <button
             onClick={() => setPageByCategory((prev) => ({ ...prev }))}
             className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"

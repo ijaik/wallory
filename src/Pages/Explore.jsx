@@ -99,6 +99,10 @@ function Explore() {
         "https://i.pinimg.com/736x/09/73/c8/0973c8a0f497717e720e2d7c68ef012a.jpg",
     },
   ];
+  const [isLoading, setIsLoading] = useState(true);
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
   function SearchForm({ setSelectedCategory }) {
     const [searchTerm, setSearchTerm] = useState("");
     const handleSearch = (e) => {
@@ -116,7 +120,10 @@ function Explore() {
     return (
       <form
         onSubmit={handleSearch}
-        className="flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
+        onLoad={handleImageLoad}
+        className={`flex px-1 py-1 rounded-full border  overflow-hidden w-[80vw] sm:w-[50vw] text-white
+          ${isLoading ? "border-black" : "border-white"}
+          `}
       >
         <input
           type="text"
@@ -124,11 +131,15 @@ function Explore() {
           placeholder="Search Your Wallory"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full outline-none pl-4 text-sm placeholder:text-white"
+          className={`w-full outline-none pl-4 text-sm 
+            ${isLoading ? "placeholder:text-black" : "placeholder:text-white"}
+            `}
         />
         <button
           type="submit"
-          className="bg-white text-black active:bg-indigo-600 active:text-white hover:bg-indigo-500 hover:text-white transition-all text-sm rounded-full px-5 py-2.5"
+          className={`active:bg-indigo-600 active:text-white hover:bg-indigo-500 hover:text-white transition-all text-sm rounded-full px-5 py-2.5
+            ${isLoading ? "bg-black text-white" : "bg-white text-black"}
+            `}
         >
           Search
         </button>
@@ -145,6 +156,7 @@ function Explore() {
       </div>
       <HeroSwiper
         mb={"mb-2.5"}
+        isLoading={isLoading}
         SearchButton={() => (
           <SearchForm setSelectedCategory={setSelectedCategory} />
         )}
