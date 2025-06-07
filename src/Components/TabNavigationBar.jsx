@@ -18,7 +18,7 @@ function TabNavigationBar({
   return (
     <main>
       <nav className="sticky top-0 left-0 right-0 z-10 p-2.5 dark:bg-black bg-white">
-        <div className="flex items-center justify-evenly overflow-x-auto">
+        <div className="flex items-center justify-evenly overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {categories.map(({ name, emoji }) => (
             <button
               key={name}

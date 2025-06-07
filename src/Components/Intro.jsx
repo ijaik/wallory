@@ -59,7 +59,7 @@ export default function Intro({ onComplete }) {
           </span>
         ))}
       </div>
-      <p className="tagline mt-4 text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-300 max-w-md text-center">
+      <p className="tagline mt-5 mr-2.5 ml-2.5 text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-300 max-w-md text-center">
         Discover stunning wallpapers to personalize your world.
       </p>
     </div>

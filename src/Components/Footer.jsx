@@ -9,16 +9,7 @@ function Footer() {
         <span className="animate-pulse text-pink-500 inline-block transition-all duration-500 ease-out hover:scale-150">
           💗
         </span>{" "}
-        By Jai | Powered by{" "}
-        <a
-          href="https://unsplash.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
-          aria-label="Visit Unsplash website"
-        >
-          Unsplash
-        </a>
+        By Jai
       </p>
       <p className="text-[25px] text-indigo-500 font-['Leckerli_One',_cursive]">
         Wallory
