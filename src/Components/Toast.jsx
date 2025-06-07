@@ -33,11 +33,11 @@ function Toast({ type, handleCloseToast, deferredPrompt, handleInstallClick }) {
       >
         {type === "download" ? (
           <div className="flex-1 font-['Leckerli_One',_cursive] text-sm text-center mb-2 sm:mb-0 sm:mr-2">
-            ✨ To download wallpaper, click on the wallpaper.
+            🖼️ Tap the wallpaper to download it!
           </div>
         ) : (
           <div className="flex-1 font-['Leckerli_One',_cursive] text-sm text-center mb-2 sm:mb-0 sm:mr-2">
-            ✨ Install Wallory for a better experience!
+            🚀 Install <strong>Wallory</strong> for the best experience!
           </div>
         )}
         {type === "install" && deferredPrompt && (
