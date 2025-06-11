@@ -30,26 +30,19 @@ function Home() {
         localStorage.setItem("isInstallable", "true");
       }
     };
-
-    // Handle appinstalled event
     const handleAppInstalled = () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
       localStorage.setItem("isInstallable", "false");
       setShowInstallToast(false);
     };
-
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
     window.addEventListener("appinstalled", handleAppInstalled);
-
-    // Show toasts based on localStorage and installation status
     if (!hasClosedDownloadToast) {
       setShowDownloadToast(true);
     } else if (!hasClosedInstallToast && !checkIsInstalled()) {
       setShowInstallToast(true);
     }
-
-    // Cleanup event listeners
     return () => {
       window.removeEventListener(
         "beforeinstallprompt",

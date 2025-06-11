@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import BottomNav from "../Components/BottomNav";
 import HeroSwiper from "../Components/HeroSwiper";
 import Card from "../Components/Card";
@@ -7,6 +8,9 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import Footer from "../Components/Footer";
 function Explore() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const cardContainerRef = useRef(null);
+  const searchFormRef = useRef(null);
+  const headerRef = useRef(null);
   const exploreCategories = [
     {
       title: "Abstract",
@@ -113,8 +117,10 @@ function Explore() {
         setSelectedCategory(mappedSearch);
       }
     };
+
     return (
       <form
+        ref={searchFormRef}
         onSubmit={handleSearch}
         className="flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
       >
@@ -135,9 +141,39 @@ function Explore() {
       </form>
     );
   }
+  useEffect(() => {
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+    );
+    gsap.fromTo(
+      searchFormRef.current,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out", delay: 0.2 }
+    );
+    if (cardContainerRef.current && !selectedCategory) {
+      const cards = cardContainerRef.current.children;
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          delay: 0.4,
+        }
+      );
+    }
+  }, [selectedCategory]);
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-10 text-center">
+      <div
+        ref={headerRef}
+        className="flex flex-col items-center justify-center mt-10 text-center"
+      >
         <h2 className="text-3xl mb-5">Explore Wallpapers</h2>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-10">
           Discover a variety of stunning wallpapers to personalize your device.
@@ -165,7 +201,10 @@ function Explore() {
           <Wallpapers category={selectedCategory} />
         </>
       ) : (
-        <div className="flex justify-evenly items-center flex-wrap mt-5 mb-5">
+        <div
+          ref={cardContainerRef}
+          className="flex justify-evenly items-center flex-wrap mt-5 mb-5"
+        >
           {exploreCategories.map((category, index) => (
             <Card
               key={index}

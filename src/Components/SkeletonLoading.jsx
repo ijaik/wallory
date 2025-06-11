@@ -1,3 +1,4 @@
+import React from "react";
 const SkeletonLoading = ({ isLoading, children, className = "" }) => {
   return (
     <>
@@ -13,4 +14,4 @@ const SkeletonLoading = ({ isLoading, children, className = "" }) => {
     </>
   );
 };
-export default SkeletonLoading;
+export default React.memo(SkeletonLoading);
