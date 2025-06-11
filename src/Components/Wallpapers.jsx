@@ -15,7 +15,7 @@ const Wallpapers = React.memo(({ category }) => {
   const isSpecialCategory = specialCategories.includes(
     searchCategory.toLowerCase()
   );
-  const latestQueries = ["moon", "sunsets", "flower", "universe"];
+  const latestQueries = ["flower", "moon", "sunsets", "universe"];
   useEffect(() => {
     setDataByCategory((prev) => ({ ...prev, [searchCategory]: [] }));
   }, [searchCategory]);
@@ -127,7 +127,7 @@ const Wallpapers = React.memo(({ category }) => {
           </button>
         </div>
       ) : (
-        <div className="columns-2 gap-x-[0px] gap-y-[0px] p-[5px] w-full sm:columns-3 md:columns-4 lg:columns-5">
+        <div className="columns-1 gap-x-[0px] gap-y-[0px] p-[5px] w-full sm:columns-2 md:columns-3 lg:columns-4">
           {currentData.length > 0 ? (
             currentData.map((photo) => (
               <WallpaperItem
