@@ -122,7 +122,7 @@ function Explore() {
       <form
         ref={searchFormRef}
         onSubmit={handleSearch}
-        className="flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
+        className="absolute z-20 flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
       >
         <input
           type="text"

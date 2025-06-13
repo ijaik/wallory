@@ -94,7 +94,7 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
               {showSlogans && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <h2
-                    className={`dark:text-white text-2xl md:text-3xl font-bold text-center px-4 drop-shadow-lg ${
+                    className={`font-['Leckerli_One',_cursive] dark:text-white text-2xl md:text-3xl text-center px-4 drop-shadow-lg ${
                       isLoading ? "text-black" : "text-white"
                     }`}
                   >
@@ -106,7 +106,7 @@ function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="absolute z-20">{SearchButton && <SearchButton />}</div>
+      {SearchButton && <SearchButton />}
     </div>
   );
 }

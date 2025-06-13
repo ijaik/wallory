@@ -66,7 +66,7 @@ const Wallpapers = React.memo(({ category }) => {
               sortedPhotos = allPhotos.sort((a, b) => b.likes - a.likes);
               break;
           }
-          const topPhotos = sortedPhotos.slice(0, 16);
+          const topPhotos = sortedPhotos.slice(0, 20);
           setDataByCategory((prev) => ({
             ...prev,
             [searchCategory]: topPhotos,
@@ -121,7 +121,7 @@ const Wallpapers = React.memo(({ category }) => {
           <p>{error}</p>
           <button
             onClick={() => setRefetchTrigger((prev) => prev + 1)}
-            className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
+            className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded-full hover:bg-indigo-600"
           >
             Retry
           </button>

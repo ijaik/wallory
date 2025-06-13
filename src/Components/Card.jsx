@@ -26,7 +26,7 @@ function Card({ image, title, onClick }) {
         />
       </SkeletonLoading>
       <h1
-        className={`absolute z-10 text-[31.25px] font-[cursive] dark:text-white font-bold sm:font-[auto] ${
+        className={`absolute z-10 text-[31.25px] font-['Leckerli_One',_cursive] dark:text-white ${
           isLoading ? "text-black" : "text-white"
         }`}
       >
