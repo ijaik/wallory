@@ -4,7 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#615fff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover stunning wallpapers on Wallory from Unsplash. Browse categories, search themes, and customize your devices with high-quality images."
+    />
+    <meta
+      name="keywords"
+      content="wallpapers, Unsplash, high-quality images, customize devices, wallpaper app, abstract, nature, anime"
+    />
     <title>Wallory</title>
+    <link rel="canonical" href="https://wallory.netlify.app/" />
     <link rel="manifest" href="/manifest.json" />
     <link
       rel="shortcut icon"
@@ -14,32 +23,66 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/public/favicons/apple-touch-icon.png"
+      href="/favicons/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/public/favicons/favicon-32x32.png"
+      href="/favicons/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/public/favicons/favicon-16x16.png"
+      href="/favicons/favicon-16x16.png"
     />
     <link
       rel="icon"
-      href="/public/favicons/android-chrome-512x512.png"
+      href="/favicons/android-chrome-512x512.png"
       type="image/png"
       sizes="512x512"
     />
     <link
       rel="icon"
-      href="/public/favicons/android-chrome-192x192.png"
+      href="/favicons/android-chrome-192x192.png"
       type="image/png"
       sizes="192x192"
     />
+    <meta property="og:title" content="Wallory" />
+    <meta
+      property="og:description"
+      content="Explore breathtaking wallpapers from Unsplash on Wallory. Customize your devices with high-quality images."
+    />
+    <meta
+      property="og:image"
+      content="https://wallory.netlify.app/favicons/android-chrome-512x512.png"
+    />
+    <meta property="og:url" content="https://wallory.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wallory" />
+    <meta
+      name="twitter:description"
+      content="Explore breathtaking wallpapers from Unsplash on Wallory. Customize your devices with high-quality images."
+    />
+    <meta
+      name="twitter:image"
+      content="https://wallory.netlify.app/favicons/android-chrome-512x512.png"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Wallory",
+        "url": "https://wallory.netlify.app/",
+        "description": "Wallory is your ultimate destination for discovering breathtaking wallpapers from Unsplash.",
+        "applicationCategory": "Lifestyle",
+        "operatingSystem": "Web",
+        "image": "https://wallory.netlify.app/favicons/android-chrome-512x512.png",
+        "sameAs": ["https://unsplash.com"]
+      }
+    </script>
     <script>
       const theme = localStorage.getItem("theme");
       if (theme === "dark") {
@@ -49,8 +92,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
   </head>
   <body

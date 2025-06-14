@@ -24,7 +24,7 @@ const WallpaperItem = ({ photo, onDownload }) => {
         <div className="absolute bottom-7 left-7 right-7 bg-white text-black dark:bg-black bg-opacity-60 dark:text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           Photo by{" "}
           <a
-            href={photo.user.links.html}
+            href={`${photo.user.links.html}?utm_source=Wallory&utm_medium=referral`}
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-indigo-500"
@@ -33,7 +33,7 @@ const WallpaperItem = ({ photo, onDownload }) => {
           </a>{" "}
           on{" "}
           <a
-            href="https://unsplash.com"
+            href="https://unsplash.com?utm_source=Wallory&utm_medium=referral"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-indigo-500"
