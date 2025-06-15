@@ -7,8 +7,11 @@ import { useEffect, useState } from "react";
 import SkeletonLoading from "./SkeletonLoading";
 function HeroSwiper({ mb = "mb-0", SearchButton, showSlogans = false }) {
   const fallbackImages = [
-    "https://images.unsplash.com/photo-1503416997304-7f8bf166c121",
-    "https://images.unsplash.com/photo-1495616811223-4d98c6e9c869",
+    "https://i.pinimg.com/1200x/93/f8/6d/93f86da5f9810ca2e6b9807a58857c24.jpg",
+    "https://i.pinimg.com/736x/10/7f/e0/107fe0d91a7011065f4353926ea983ab.jpg",
+    "https://i.pinimg.com/1200x/32/c3/43/32c34315124cd23f668259546ba74d88.jpg",
+    "https://i.pinimg.com/736x/fe/0b/41/fe0b412e65b930b8c9b71a77eda87904.jpg",
+    "https://i.pinimg.com/736x/06/27/c3/0627c36ceac5abbed870c7ae46779c61.jpg",
   ];
   const slideSlogans = [
     "Your Space, Your Vision",

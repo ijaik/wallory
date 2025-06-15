@@ -194,7 +194,7 @@ function Explore() {
             >
               <TiArrowBackOutline />
             </button>
-            <h1 className="grow text-center text-[31.25px] text-indigo-500 font-[cursive] font-bold sm:font-[auto]">
+            <h1 className="grow text-center text-[31.25px] text-indigo-500 font-['Leckerli_One',_cursive]">
               {selectedCategory}
             </h1>
           </div>
