@@ -2,12 +2,9 @@ import { GoHome, GoHomeFill } from "react-icons/go";
 import { RiSearchLine, RiSearchFill } from "react-icons/ri";
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import BackToTop from "../Components/BackToTop";
-gsap.registerPlugin(useGSAP);
 function BottomNav() {
   const location = useLocation();
   const [activeNav, setActiveNav] = useState(() => {
@@ -44,18 +41,10 @@ function BottomNav() {
     };
   }, []);
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
-  useGSAP(() => {
-    gsap.from(".bottom-nav-icon", {
-      y: 10,
-      opacity: 0,
-      duration: 0.5,
-      stagger: 0.25,
-    });
-  });
   return (
     <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500/50 backdrop-blur-[25px] dark:bg-indigo-900/50 rounded-full transition-all duration-250 ease-linear">
       <ul className="flex justify-evenly items-center">
-        <li className="bottom-nav-icon py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[2.5vw]">
           <NavLink to="/" className="cursor-default sm:cursor-pointer">
             {activeNav === "home" ? (
               <GoHomeFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400/50" />
@@ -64,7 +53,7 @@ function BottomNav() {
             )}
           </NavLink>
         </li>
-        <li className="bottom-nav-icon py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[2.5vw]">
           <NavLink to="/explore" className="cursor-default sm:cursor-pointer">
             {activeNav === "explore" ? (
               <RiSearchFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400/50" />
@@ -73,7 +62,7 @@ function BottomNav() {
             )}
           </NavLink>
         </li>
-        <li className="bottom-nav-icon py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[2.5vw]">
           <DarkModeSwitch
             checked={isDarkMode}
             onChange={toggleDarkMode}

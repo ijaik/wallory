@@ -6,6 +6,7 @@ import Card from "../Components/Card";
 import Wallpapers from "../Components/Wallpapers";
 import { TiArrowBackOutline } from "react-icons/ti";
 import Footer from "../Components/Footer";
+import { mapCategory } from "../Utils/mapCategory";
 function Explore() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const cardContainerRef = useRef(null);
@@ -108,16 +109,9 @@ function Explore() {
     const handleSearch = (e) => {
       e.preventDefault();
       if (searchTerm.trim()) {
-        const mappedSearch =
-          searchTerm.trim() === "Moone"
-            ? "Moon"
-            : searchTerm.trim() === "Sonne"
-            ? "Sunset"
-            : searchTerm.trim();
-        setSelectedCategory(mappedSearch);
+        setSelectedCategory(mapCategory(searchTerm.trim()));
       }
     };
-
     return (
       <form
         ref={searchFormRef}

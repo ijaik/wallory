@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-export const useFetchData = (category, API_KEY) => {
+import { mapCategory } from "../Utils/mapCategory";
+export const useFetchData = (category, API_KEY, count = 20) => {
   const [data, setData] = useState(() => {
     const cached = localStorage.getItem(`wallpapers_${category}`);
     return cached ? JSON.parse(cached) : [];
@@ -7,11 +8,7 @@ export const useFetchData = (category, API_KEY) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [refetchTrigger, setRefetchTrigger] = useState(0);
-  const categoryMap = {
-    Moone: "Moon",
-    Sonne: "Sunset",
-  };
-  const searchCategory = categoryMap[category] || category;
+  const searchCategory = mapCategory(category);
   const specialCategories = ["latest", "trending", "most popular"];
   const isSpecialCategory = specialCategories.includes(
     searchCategory.toLowerCase()
@@ -32,7 +29,7 @@ export const useFetchData = (category, API_KEY) => {
       return;
     }
     const queries = isSpecialCategory ? latestQueries : [searchCategory];
-    const perPage = isSpecialCategory ? 40 : 20;
+    const perPage = count;
     const orderBy =
       isSpecialCategory &&
       (searchCategory.toLowerCase() === "latest" ||
@@ -52,11 +49,10 @@ export const useFetchData = (category, API_KEY) => {
         if (!response.ok)
           throw new Error(`Network error: ${response.statusText}`);
         const result = await response.json();
-
         if (isSpecialCategory) {
           allPhotos = [...allPhotos, ...result.results];
         } else {
-          allPhotos = result.results;
+          allPhotos = result.results.slice(0, count);
         }
       }
       if (isSpecialCategory) {
@@ -72,7 +68,7 @@ export const useFetchData = (category, API_KEY) => {
             sortedPhotos = allPhotos.sort((a, b) => b.likes - a.likes);
             break;
         }
-        allPhotos = sortedPhotos.slice(0, 20);
+        allPhotos = sortedPhotos.slice(0, count);
       }
       localStorage.setItem(cacheKey, JSON.stringify(allPhotos));
       localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
@@ -82,7 +78,7 @@ export const useFetchData = (category, API_KEY) => {
     } finally {
       setLoading(false);
     }
-  }, [searchCategory, API_KEY, isSpecialCategory]);
+  }, [searchCategory, API_KEY, isSpecialCategory, count]);
   useEffect(() => {
     fetchData();
   }, [fetchData, refetchTrigger]);

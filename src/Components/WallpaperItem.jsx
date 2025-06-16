@@ -13,7 +13,7 @@ const WallpaperItem = ({ photo, onDownload }) => {
           <img
             src={photo.urls.small}
             alt={photo.alt_description || `Wallpaper by ${photo.user.name}`}
-            className={`absolute inset-0 w-full h-full object-cover rounded-[10px] ${
+            className={`absolute inset-0 w-full h-full object-cover rounded-[10px] transition-opacity duration-250 ${
               isLoading ? "opacity-0" : "opacity-100"
             }`}
             loading="lazy"
