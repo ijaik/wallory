@@ -10,7 +10,7 @@ function Toast({ type, handleCloseToast, deferredPrompt, handleInstallClick }) {
           right: -10,
           opacity: 0,
           duration: 1,
-          delay: 2,
+          delay: 1,
           ease: "power2.out",
         });
       }
@@ -20,7 +20,7 @@ function Toast({ type, handleCloseToast, deferredPrompt, handleInstallClick }) {
   return (
     <div
       ref={containerRef}
-      className="flex justify-end items-center fixed top-[82px] right-5 left-5 transition-transform duration-250 ease-out z-50"
+      className="fixed top-[82px] right-5 left-auto transition-transform duration-250 ease-out z-50"
       onClick={handleCloseToast}
     >
       <div

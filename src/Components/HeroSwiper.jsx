@@ -63,7 +63,7 @@ function HeroSwiper({
                 {showSlogans && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <h2
-                      className={`font-['Leckerli_One',_cursive] text-2xl md:text-3xl text-center px-4 drop-shadow-lg ${
+                      className={`font-['Leckerli_One',_cursive] dark:text-white text-2xl md:text-3xl text-center px-4 drop-shadow-lg ${
                         !isLoaded ? "text-black" : "text-white"
                       }`}
                     >

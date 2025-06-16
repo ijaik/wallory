@@ -1,101 +1,36 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import Nav from "../Components/Nav";
 import BottomNav from "../Components/BottomNav";
 import HeroSwiper from "../Components/HeroSwiper";
 import TabNavigationBar from "../Components/TabNavigationBar";
 import Footer from "../Components/Footer";
-import Toast from "../Components/Toast";
 function Home() {
-  const [showDownloadToast, setShowDownloadToast] = useState(false);
-  const [showInstallToast, setShowInstallToast] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [isInstalled, setIsInstalled] = useState(false);
+  const headerRef = useRef(null);
+  const mainRef = useRef(null);
   useEffect(() => {
-    const checkIsInstalled = () => {
-      return (
-        window.matchMedia("(display-mode: standalone)").matches ||
-        navigator.standalone ||
-        window.navigator.userAgent.includes("MobileApp")
-      );
-    };
-    setIsInstalled(checkIsInstalled());
-    const hasClosedDownloadToast = localStorage.getItem(
-      "hasClosedDownloadToast"
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
-    const hasClosedInstallToast = localStorage.getItem("hasClosedInstallToast");
-    const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault();
-      if (!checkIsInstalled()) {
-        setDeferredPrompt(e);
-        localStorage.setItem("isInstallable", "true");
-      }
-    };
-    const handleAppInstalled = () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-      localStorage.setItem("isInstallable", "false");
-      setShowInstallToast(false);
-    };
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    window.addEventListener("appinstalled", handleAppInstalled);
-    if (!hasClosedDownloadToast) {
-      setShowDownloadToast(true);
-    } else if (!hasClosedInstallToast && !checkIsInstalled()) {
-      setShowInstallToast(true);
-    }
-    return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt
-      );
-      window.removeEventListener("appinstalled", handleAppInstalled);
-    };
+    gsap.fromTo(
+      mainRef.current,
+      { opacity: 0, x: -100 },
+      { opacity: 1, x: 0, duration: 1, ease: "power2.out", delay: 0.3 }
+    );
   }, []);
-  const handleCloseDownloadToast = () => {
-    localStorage.setItem("hasClosedDownloadToast", "true");
-    setShowDownloadToast(false);
-    if (!localStorage.getItem("hasClosedInstallToast") && !isInstalled) {
-      setShowInstallToast(true);
-    }
-  };
-  const handleCloseInstallToast = () => {
-    localStorage.setItem("hasClosedInstallToast", "true");
-    setShowInstallToast(false);
-  };
-  const handleInstallClick = async () => {
-    if (deferredPrompt && deferredPrompt !== true) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") {
-        console.log("User accepted the install prompt");
-      } else {
-        console.log("User dismissed the install prompt");
-      }
-      setDeferredPrompt(null);
-      localStorage.setItem("isInstallable", "false");
-      setShowInstallToast(false);
-    }
-  };
   return (
     <>
-      {showDownloadToast && (
-        <Toast type="download" handleCloseToast={handleCloseDownloadToast} />
-      )}
-      {showInstallToast && !isInstalled && (
-        <Toast
-          type="install"
-          handleCloseToast={handleCloseInstallToast}
-          deferredPrompt={deferredPrompt}
-          handleInstallClick={handleInstallClick}
-        />
-      )}
-      <header className="flex flex-col">
+      <header ref={headerRef} className="flex flex-col justify-center">
         <Nav />
         <HeroSwiper showSlogans={true} />
       </header>
-      <TabNavigationBar storageKey="home_wallpapers" />
-      <BottomNav />
-      <Footer />
+      <main ref={mainRef}>
+        <TabNavigationBar storageKey="home_wallpapers" />
+      </main>
+        <BottomNav />
+        <Footer />
     </>
   );
 }

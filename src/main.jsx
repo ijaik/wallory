@@ -1,13 +1,10 @@
-import { StrictMode, lazy } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "./Contexts/ThemeContext.jsx";
 import { LenisProvider } from "./Contexts/LenisContext.jsx";
-const About = lazy(() => import("./Pages/About.jsx"));
-const Explore = lazy(() => import("./Pages/Explore.jsx"));
-const NoPage = lazy(() => import("./Pages/NoPage.jsx"));
 const registerServiceWorker = () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
@@ -25,12 +22,7 @@ createRoot(document.getElementById("root")).render(
     <ThemeProvider>
       <LenisProvider>
         <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="*" element={<NoPage />} />
-            </Routes>
+          <App />
         </BrowserRouter>
       </LenisProvider>
     </ThemeProvider>

@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { ThemeContext } from "../Contexts/ThemeContext";
-import BackToTop from "../Components/BackToTop";
 function BottomNav() {
   const location = useLocation();
   const [activeNav, setActiveNav] = useState(() => {
@@ -42,38 +41,37 @@ function BottomNav() {
   }, []);
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
   return (
-    <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500/50 backdrop-blur-[25px] dark:bg-indigo-900/50 rounded-full transition-all duration-250 ease-linear">
+    <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500 dark:bg-indigo-950 rounded-full transition-all duration-250 ease-linear">
       <ul className="flex justify-evenly items-center">
-        <li className="py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[5vw] sm:px-[2.5vw]">
           <NavLink to="/" className="cursor-default sm:cursor-pointer">
             {activeNav === "home" ? (
-              <GoHomeFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400/50" />
+              <GoHomeFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400" />
             ) : (
-              <GoHome className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400" />
+              <GoHome className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400" />
             )}
           </NavLink>
         </li>
-        <li className="py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[5vw] sm:px-[2.5vw]">
           <NavLink to="/explore" className="cursor-default sm:cursor-pointer">
             {activeNav === "explore" ? (
-              <RiSearchFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400/50" />
+              <RiSearchFill className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400" />
             ) : (
-              <RiSearchLine className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2 hover:bg-indigo-400/50" />
+              <RiSearchLine className="text-[#ffffff] w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400" />
             )}
           </NavLink>
         </li>
-        <li className="py-[5px] px-[2.5vw]">
+        <li className="py-[5px] px-[5vw] sm:px-[2.5vw]">
           <DarkModeSwitch
             checked={isDarkMode}
             onChange={toggleDarkMode}
-            className="darkmode-cursor hover:bg-indigo-400/50 dark:hover:bg-indigo-800/50 rounded-full px-2 py-2"
+            className="darkmode-cursor hover:bg-indigo-400 dark:hover:bg-indigo-800 rounded-full px-2 py-2"
             sunColor="white"
             moonColor="white"
             size={48}
             style={{ cursor: "default" }}
           />
         </li>
-        <BackToTop />
       </ul>
     </nav>
   );
