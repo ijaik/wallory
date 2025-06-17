@@ -1,16 +1,24 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
-import { lazy } from "react";
-import Intro from "./Components/Intro";
 import Home from "./Pages/Home";
+import About from "./Pages/About.jsx";
+import Explore from "./Pages/Explore.jsx";
+import NoPage from "./Pages/NoPage.jsx";
+import Intro from "./Components/Intro";
 import Toast from "./Components/Toast";
 import { ToastProvider, useToast } from "./Contexts/ToastContext";
-const About = lazy(() => import("./Pages/About.jsx"));
-const Explore = lazy(() => import("./Pages/Explore.jsx"));
-const NoPage = lazy(() => import("./Pages/NoPage.jsx"));
 function AppContent() {
   const [showIntro, setShowIntro] = useState(false);
-  const { showDownloadToast, showInstallToast, deferredPrompt, isInstalled, handleCloseDownloadToast, handleCloseInstallToast, handleInstallClick, triggerToastsAfterIntro } = useToast();
+  const {
+    showDownloadToast,
+    showInstallToast,
+    deferredPrompt,
+    isInstalled,
+    handleCloseDownloadToast,
+    handleCloseInstallToast,
+    handleInstallClick,
+    triggerToastsAfterIntro,
+  } = useToast();
   useEffect(() => {
     const hasSeenIntro = localStorage.getItem("hasSeenIntro");
     if (!hasSeenIntro) {
