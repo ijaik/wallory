@@ -114,6 +114,7 @@ function Explore() {
     };
     return (
       <form
+        name="Search"
         ref={searchFormRef}
         onSubmit={handleSearch}
         className="absolute z-20 flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
