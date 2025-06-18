@@ -13,7 +13,7 @@ export const useFetchData = (category, API_KEY, count = 20) => {
   const isSpecialCategory = specialCategories.includes(
     searchCategory.toLowerCase()
   );
-  const latestQueries = ["flowers", "moon", "sunset", "universe"];
+  const latestQueries = ["moon", "sunset", "universe"];
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const fetchData = useCallback(async () => {
     const cacheKey = `wallpapers_${searchCategory}`;
