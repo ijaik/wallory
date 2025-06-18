@@ -9,8 +9,9 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ["react", "react-dom", "react-router"],
-          animations: ["gsap"],
-          swiper: ["swiper/react", "swiper/modules"],
+          animations: ["gsap", "@gsap/react"],
+          swiper: ["swiper", "swiper/modules"],
+          lenis: ["lenis"],
         },
       },
     },
