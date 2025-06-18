@@ -7,11 +7,23 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router"],
-          animations: ["gsap", "@gsap/react"],
-          swiper: ["swiper", "swiper/modules"],
-          lenis: ["lenis"],
+        manualChunks(id) {
+          if (
+            id.includes("node_modules/react") ||
+            id.includes("node_modules/react-dom") ||
+            id.includes("node_modules/react-router")
+          ) {
+            return "vendor";
+          }
+          if (id.includes("node_modules/gsap")) {
+            return "gsap";
+          }
+          if (id.includes("node_modules/swiper")) {
+            return "swiper";
+          }
+          if (id.includes("node_modules/lenis")) {
+            return "lenis";
+          }
         },
       },
     },

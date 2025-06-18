@@ -30,7 +30,7 @@ function HeroSwiper({
   const { data, loading, error } = useFetchData(category, API_KEY, 5);
   const images =
     !error && data.length > 0
-      ? data.map((item) => item.urls?.regular || fallbackImages[0])
+      ? data.map((item) => item.urls?.small || fallbackImages[0])
       : fallbackImages;
   return (
     <div
