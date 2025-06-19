@@ -21,9 +21,6 @@ export default defineConfig({
           if (id.includes("node_modules/swiper")) {
             return "swiper";
           }
-          if (id.includes("node_modules/lenis")) {
-            return "lenis";
-          }
         },
       },
     },

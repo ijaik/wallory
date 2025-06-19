@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route } from "react-router";
-import Home from "./Pages/Home";
-import About from "./Pages/About.jsx";
-import Explore from "./Pages/Explore.jsx";
-import NoPage from "./Pages/NoPage.jsx";
-import Intro from "./Components/Intro";
-import Toast from "./Components/Toast";
-import { ToastProvider, useToast } from "./Contexts/ToastContext";
+import Intro from "./Components/Intro.jsx";
+import Toast from "./Components/Toast.jsx";
+import { ToastProvider, useToast } from "./Contexts/ToastContext.jsx";
+import Home from "./Pages/Home.jsx";
+const About = lazy(() => import("./Pages/About.jsx"));
+const Explore = lazy(() => import("./Pages/Explore.jsx"));
+const NoPage = lazy(() => import("./Pages/NoPage.jsx"));
+const Loading = () => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+      <div className="flex flex-col items-center gap-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+      </div>
+    </div>
+  );
+};
 function AppContent() {
   const [showIntro, setShowIntro] = useState(false);
   const {
@@ -46,12 +55,14 @@ function AppContent() {
       {showIntro ? (
         <Intro onComplete={handleIntroComplete} />
       ) : (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </Suspense>
       )}
     </>
   );
