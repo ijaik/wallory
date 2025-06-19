@@ -15,12 +15,6 @@ export default defineConfig({
           ) {
             return "vendor";
           }
-          if (id.includes("node_modules/gsap")) {
-            return "gsap";
-          }
-          if (id.includes("node_modules/swiper")) {
-            return "swiper";
-          }
         },
       },
     },
