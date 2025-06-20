@@ -7,11 +7,13 @@ import Wallpapers from "../Components/Wallpapers";
 import { TiArrowBackOutline } from "react-icons/ti";
 import Footer from "../Components/Footer";
 import { mapCategory } from "../Utils/mapCategory";
+import { RiSearchLine } from "react-icons/ri";
 function Explore() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const cardContainerRef = useRef(null);
   const searchFormRef = useRef(null);
   const headerRef = useRef(null);
+  const hasAnimated = useRef(false);
   const exploreCategories = [
     {
       title: "Abstract",
@@ -129,38 +131,42 @@ function Explore() {
         />
         <button
           type="submit"
-          className="bg-white text-black active:bg-indigo-600 active:text-white hover:bg-indigo-500 hover:text-white transition-all text-sm rounded-full px-5 py-2.5"
+          className="flex items-center justify-center p-2.5 rounded-full bg-indigo-500 hover:bg-indigo-400 dark:bg-indigo-950 dark:hover:bg-indigo-800 active:scale-95"
+          aria-label="Submit Search"
         >
-          Search
+          <RiSearchLine className="text-white w-7.5 h-7.5" />
         </button>
       </form>
     );
   }
   useEffect(() => {
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: -50 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-    );
-    gsap.fromTo(
-      searchFormRef.current,
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out", delay: 0.2 }
-    );
-    if (cardContainerRef.current && !selectedCategory) {
-      const cards = cardContainerRef.current.children;
+    if (!hasAnimated.current) {
       gsap.fromTo(
-        cards,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          delay: 0.4,
-        }
+        headerRef.current,
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
       );
+      gsap.fromTo(
+        searchFormRef.current,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out", delay: 0.2 }
+      );
+      if (cardContainerRef.current && !selectedCategory) {
+        const cards = cardContainerRef.current.children;
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            delay: 0.4,
+          }
+        );
+      }
+      hasAnimated.current = true;
     }
   }, [selectedCategory]);
   return (
