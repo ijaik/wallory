@@ -119,7 +119,7 @@ function Explore() {
         name="Search"
         ref={searchFormRef}
         onSubmit={handleSearch}
-        className="absolute z-20 flex px-1 py-1 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
+        className="absolute z-20 flex p-1.25 rounded-full border border-white overflow-hidden w-[80vw] sm:w-[50vw] text-white"
       >
         <input
           type="text"
@@ -127,11 +127,11 @@ function Explore() {
           placeholder="Search Your Wallory"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full outline-none pl-4 text-sm placeholder:text-white"
+          className="w-full outline-none pl-5 placeholder:text-white"
         />
         <button
           type="submit"
-          className="flex items-center justify-center p-2.5 rounded-full bg-indigo-500 hover:bg-indigo-400 dark:bg-indigo-950 dark:hover:bg-indigo-800 active:scale-95"
+          className="flex items-center justify-center p-2.5 rounded-full bg-indigo-500 hover:bg-indigo-400 dark:bg-indigo-950 dark:hover:bg-indigo-800 active:scale-90"
           aria-label="Submit Search"
         >
           <RiSearchLine className="text-white w-7.5 h-7.5" />
