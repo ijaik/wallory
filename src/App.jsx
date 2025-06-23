@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
-import Intro from "./Components/Intro.jsx";
-import Toast from "./Components/Toast.jsx";
-import { ToastProvider, useToast } from "./Contexts/ToastContext.jsx";
 import Home from "./Pages/Home.jsx";
 import About from "./Pages/About.jsx";
 import Explore from "./Pages/Explore.jsx";
+import Customize from "./Pages/Customize.jsx";
 import NoPage from "./Pages/NoPage.jsx";
+import Intro from "./Components/Intro.jsx";
+import Toast from "./Components/Toast.jsx";
+import { ToastProvider, useToast } from "./Contexts/ToastContext";
 function AppContent() {
   const [showIntro, setShowIntro] = useState(false);
   const {
@@ -50,6 +51,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/customize" element={<Customize />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       )}

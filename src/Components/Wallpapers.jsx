@@ -1,34 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import WallpaperItem from "./WallpaperItem";
 import { useFetchData } from "../Hook/useFetchData";
 const Wallpapers = React.memo(({ category }) => {
   const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
   const { data, loading, error, refetch } = useFetchData(category, API_KEY);
-  const handleDownload = useCallback(
-    async (photoId, photoDescription) => {
-      try {
-        const downloadUrl = `https://api.unsplash.com/photos/${photoId}/download?client_id=${API_KEY}`;
-        const response = await fetch(downloadUrl);
-        if (!response.ok) throw new Error("Failed to initiate download");
-        const data = await response.json();
-        if (!data.url) throw new Error("No download URL found in response");
-        const imageResponse = await fetch(data.url);
-        if (!imageResponse.ok) throw new Error("Failed to download image");
-        const blob = await imageResponse.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${photoDescription || `${photoId}`}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-      } catch (err) {
-        console.error("Download error:", err);
-      }
-    },
-    [API_KEY]
-  );
   return (
     <>
       {loading && data.length === 0 ? (
@@ -55,7 +30,6 @@ const Wallpapers = React.memo(({ category }) => {
               <WallpaperItem
                 key={photo.id}
                 photo={photo}
-                onDownload={handleDownload}
               />
             ))
           ) : (

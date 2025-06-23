@@ -1,7 +1,7 @@
 {
   "name": "Wallory",
   "short_name": "Wallory",
-  "description": "Wallory is your ultimate destination for discovering breathtaking wallpapers from Unsplash. Browse diverse categories, search for themes that inspire you, and customize your devices effortlessly with high-quality images.",
+  "description": "Wallory is your ultimate destination for discovering and customizing breathtaking wallpapers from Unsplash. Browse diverse categories, apply filters, add text, and crop images for your devices.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

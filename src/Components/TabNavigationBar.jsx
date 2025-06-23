@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import Wallpapers from "./Wallpapers";
-import PropTypes from "prop-types";
 const TabNavigationBar = ({
   categories = [
     { name: "Latest", emoji: "✨" },
@@ -50,14 +49,5 @@ const TabNavigationBar = ({
       <Wallpapers category={activeCategory} />
     </>
   );
-};
-TabNavigationBar.propTypes = {
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      emoji: PropTypes.string.isRequired,
-    })
-  ),
-  storageKey: PropTypes.string,
 };
 export default TabNavigationBar;

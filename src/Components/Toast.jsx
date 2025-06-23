@@ -33,7 +33,7 @@ function Toast({ type, handleCloseToast, deferredPrompt, handleInstallClick }) {
       >
         {type === "download" ? (
           <div className="font-['Leckerli_One',_cursive] text-center mr-2">
-            🖼️ Tap the wallpaper to download it!
+            🖼️ Tap the wallpaper to customize or download it!
           </div>
         ) : (
           <div className="font-['Leckerli_One',_cursive] text-center mr-2">

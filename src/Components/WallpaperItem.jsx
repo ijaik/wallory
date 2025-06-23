@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import SkeletonLoading from "./SkeletonLoading";
-const WallpaperItem = ({ photo, onDownload }) => {
+const WallpaperItem = ({ photo }) => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const handleImageLoad = () => {
     setIsLoading(false);
+  };
+  const handleClick = () => {
+    navigate("/customize", { state: { photo } });
   };
   const aspectRatio = (photo.height / photo.width) * 100;
   return (
@@ -18,29 +23,9 @@ const WallpaperItem = ({ photo, onDownload }) => {
             }`}
             loading="lazy"
             onLoad={handleImageLoad}
-            onClick={() => onDownload(photo.id, photo.alt_description)}
+            onClick={handleClick}
           />
         </SkeletonLoading>
-        <div className="absolute bottom-7 left-7 right-7 bg-white text-black dark:bg-black bg-opacity-60 dark:text-white text-sm p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          Photo by{" "}
-          <a
-            href={`${photo.user.links.html}?utm_source=Wallory&utm_medium=referral`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-indigo-500"
-          >
-            {photo.user.name}
-          </a>{" "}
-          on{" "}
-          <a
-            href="https://unsplash.com?utm_source=Wallory&utm_medium=referral"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-indigo-500"
-          >
-            Unsplash
-          </a>
-        </div>
       </div>
     </div>
   );

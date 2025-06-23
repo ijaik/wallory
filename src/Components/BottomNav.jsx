@@ -11,9 +11,14 @@ function BottomNav() {
   });
   useEffect(() => {
     const currentPath = location.pathname;
-    const newActiveNav = currentPath === "/explore" ? "explore" : "home";
+    const newActiveNav =
+      currentPath === "/explore"
+        ? "explore"
+        : currentPath === "/"
+        ? "home"
+        : null;
     setActiveNav(newActiveNav);
-    localStorage.setItem("activeNav", newActiveNav);
+    localStorage.setItem("activeNav", newActiveNav || "home");
   }, [location.pathname]);
   useEffect(() => {
     let lastScrollTop =
