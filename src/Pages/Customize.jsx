@@ -307,7 +307,7 @@ function Customize() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Add your text"
-                className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent transition-all"
+                className="w-full p-3 outline-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent transition-all"
                 aria-label="Enter text for overlay"
               />
               <div className="flex items-center gap-3 mt-3">

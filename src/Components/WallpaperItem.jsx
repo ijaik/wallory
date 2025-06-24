@@ -16,7 +16,7 @@ const WallpaperItem = ({ photo }) => {
       <div className="relative" style={{ paddingTop: `${aspectRatio}%` }}>
         <SkeletonLoading isLoading={isLoading}>
           <img
-            src={photo.urls.small}
+            src={photo.urls.regular}
             alt={photo.alt_description || `Wallpaper by ${photo.user.name}`}
             className={`absolute inset-0 w-full h-full object-cover rounded-[10px] transition-opacity duration-250 ${
               isLoading ? "opacity-0" : "opacity-100"
