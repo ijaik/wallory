@@ -114,7 +114,6 @@ const Customize = () => {
           className="w-full h-auto object-contain transition-all duration-300"
           style={{ filter }}
           onLoad={() => setIsLoaded(true)}
-          loading="lazy"
           crossOrigin="anonymous"
         />
       ) : (
