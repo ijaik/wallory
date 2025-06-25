@@ -56,7 +56,7 @@
     />
     <meta
       property="og:image"
-      content="https://wallory.netlify.app/favicons/android-chrome-512x512.png"
+      content="https://wallory.netlify.app/favicons/android-chrome-192x192.png"
     />
     <meta property="og:url" content="https://wallory.netlify.app/" />
     <meta property="og:type" content="website" />
@@ -68,7 +68,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://wallory.netlify.app/favicons/android-chrome-512x512.png"
+      content="https://wallory.netlify.app/favicons/android-chrome-192x192.png"
     />
     <script type="application/ld+json">
       {
@@ -83,12 +83,6 @@
         "sameAs": ["https://unsplash.com"]
       }
     </script>
-    <script>
-      const theme = localStorage.getItem("theme");
-      if (theme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-      }
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -99,7 +93,7 @@
     />
   </head>
   <body
-    class="overflow-x-hidden select-none text-black bg-white h-screen w-full dark:bg-black dark:text-white"
+    class="overflow-x-hidden select-none text-black bg-white dark:bg-black dark:text-white"
   >
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
