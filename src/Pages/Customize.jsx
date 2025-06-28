@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { gsap } from "gsap";
 import Footer from "../Components/Footer";
@@ -43,42 +43,45 @@ const Customize = () => {
     });
     return () => ctx.revert();
   }, []);
-  const handleDownload = async (customized = false) => {
-    if (!isLoaded || !photo) {
-      setError("Image not loaded. Please try again.");
-      return;
-    }
-    try {
-      const img = new Image();
-      img.src = photo.urls.regular;
-      img.crossOrigin = "anonymous";
-      await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = () => reject(new Error("Failed to load image."));
-      });
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d", { willReadFrequently: true });
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      if (customized && filter !== "none") {
-        ctx.filter = filter;
-        ctx.drawImage(img, 0, 0);
+  const handleDownload = useCallback(
+    async (customized = false) => {
+      if (!isLoaded || !photo) {
+        setError("Image not loaded. Please try again.");
+        return;
       }
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = `wallory-${customized ? "customized-" : ""}${
-        photo.id || "image"
-      }`;
-      link.click();
-      link.remove();
-    } catch {
-      setError(
-        `Failed to download ${customized ? "customized" : "original"} image.`
-      );
-    }
-  };
+      try {
+        const img = new Image();
+        img.src = photo.urls.regular;
+        img.crossOrigin = "anonymous";
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = () => reject(new Error("Failed to load image."));
+        });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        if (customized && filter !== "none") {
+          ctx.filter = filter;
+          ctx.drawImage(img, 0, 0);
+        }
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = `wallory-${customized ? "customized-" : ""}${
+          photo.id || "image"
+        }`;
+        link.click();
+        link.remove();
+      } catch {
+        setError(
+          `Failed to download ${customized ? "customized" : "original"} image.`
+        );
+      }
+    },
+    [isLoaded, photo, filter]
+  );
   const handleOriginalDownload = async () => {
     if (!isLoaded || !photo?.id) {
       setError("Image not loaded or invalid.");

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
 import { gsap } from "gsap";
-function NoPage() {
+function NotFound() {
   useEffect(() => {
     const tl = gsap.timeline();
     tl.fromTo(
@@ -68,4 +68,4 @@ function NoPage() {
     </main>
   );
 }
-export default NoPage;
+export default NotFound;

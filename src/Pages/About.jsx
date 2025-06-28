@@ -6,16 +6,10 @@ function About() {
   useEffect(() => {
     const tl = gsap.timeline();
     tl.fromTo(
-      ".about-title",
+      [".about-title", ".about-description"],
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", stagger: 0.2 }
     )
-      .fromTo(
-        ".about-description",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.4"
-      )
       .fromTo(
         ".unsplash-credit",
         { opacity: 0, y: 20 },

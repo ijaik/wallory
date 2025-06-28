@@ -4,7 +4,7 @@ import Home from "./Pages/Home.jsx";
 import About from "./Pages/About.jsx";
 import Explore from "./Pages/Explore.jsx";
 import Customize from "./Pages/Customize.jsx";
-import NoPage from "./Pages/NoPage.jsx";
+import NotFound from "./Pages/NotFound.jsx";
 import Intro from "./Components/Intro.jsx";
 import Toast from "./Components/Toast.jsx";
 import { ToastProvider, useToast } from "./Contexts/ToastContext";
@@ -52,7 +52,7 @@ function AppContent() {
           <Route path="/about" element={<About />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/customize" element={<Customize />} />
-          <Route path="*" element={<NoPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
     </>

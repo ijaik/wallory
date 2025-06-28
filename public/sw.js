@@ -1,4 +1,4 @@
-const CACHE_NAME = "wallory-cache";
+const CACHE_NAME = "wallory-cache-v1";
 const urlsToCache = [
   "/",
   "/manifest.json",
@@ -8,6 +8,8 @@ const urlsToCache = [
   "/favicons/favicon-16x16.png",
   "/favicons/android-chrome-192x192.png",
   "/favicons/android-chrome-512x512.png",
+  "/index.css",
+  "https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap",
 ];
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -32,9 +34,24 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+  if (event.request.url.includes("api.unsplash.com")) {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        const networkFetch = fetch(event.request).then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return networkResponse;
+        });
+        return cachedResponse || networkFetch;
+      })
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+      })
+    );
+  }
 });

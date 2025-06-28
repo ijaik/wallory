@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import SkeletonLoading from "./SkeletonLoading";
 function Card({ image, title, onClick }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,4 +35,4 @@ function Card({ image, title, onClick }) {
     </div>
   );
 }
-export default Card;
+export default React.memo(Card);
