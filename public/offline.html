@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You're Offline</title>
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#615fff"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#1e1a4d"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f4f4f4;
+        color: #333;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5em;
+      }
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 2em;
+      }
+      button {
+        padding: 15px;
+        font-size: 20px;
+        background-color: #615fff;
+        color: white;
+        border: none;
+        border-radius: 999px;
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        background-color: #7c86ff;
+      }
+      .emoji {
+        font-size: 3rem;
+        margin-bottom: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="emoji">📡</div>
+    <h1>You're Offline</h1>
+    <p>
+      It looks like you're not connected to the internet.<br />
+      Please check your connection and try again.
+    </p>
+    <button onclick="location.reload()">Try Again</button>
+  </body>
+</html>

@@ -10,5 +10,12 @@ Discover stunning wallpapers from Unsplash with **Wallory**—your ultimate dest
 - **Progressive Web App (PWA)**: Install Wallory on your device for a seamless, app-like experience.
 - **Dark Mode**: Switch to dark mode for a comfortable viewing experience.
 
+## 📸 Screenshots
+
+| Narrow Layout                                        | Wide Layout                                      |
+| ---------------------------------------------------- | ------------------------------------------------ |
+| ![Narrow Screenshot](/public/screenshots/narrow.jpg) | ![Wide Screenshot](/public/screenshots/wide.jpg) |
+
 ### Try Wallory Now
+
 Visit [wallory.netlify.app](https://wallory.netlify.app/) to start exploring wallpapers instantly!

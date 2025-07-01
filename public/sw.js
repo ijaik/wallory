@@ -1,14 +1,15 @@
-const CACHE_NAME = "wallory-cache-v1";
+const CACHE_NAME = "wallory-cache-v2";
 const urlsToCache = [
   "/",
   "/manifest.json",
-  "/favicons/favicon.ico",
-  "/favicons/apple-touch-icon.png",
-  "/favicons/favicon-32x32.png",
-  "/favicons/favicon-16x16.png",
-  "/favicons/android-chrome-192x192.png",
-  "/favicons/android-chrome-512x512.png",
-  "/index.css",
+  "/index.html",
+  "/offline.html",
+  "/icons/favicon.ico",
+  "/icons/apple-touch-icon.png",
+  "/icons/favicon-32x32.png",
+  "/icons/favicon-16x16.png",
+  "/icons/android-chrome-192x192.png",
+  "/icons/android-chrome-512x512.png",
   "https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap",
 ];
 self.addEventListener("install", (event) => {
@@ -34,24 +35,43 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.includes("api.unsplash.com")) {
+  const { request } = event;
+  if (request.method !== "GET") return;
+  if (request.url.includes("api.unsplash.com")) {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        const networkFetch = fetch(event.request).then((networkResponse) => {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-          return networkResponse;
-        });
-        return cachedResponse || networkFetch;
-      })
+      fetch(request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          return response;
+        })
+        .catch(() => caches.match(request))
     );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
-      })
-    );
+    return;
   }
+  event.respondWith(
+    caches.match(request).then((cachedResponse) => {
+      return (
+        cachedResponse ||
+        fetch(request)
+          .then((networkResponse) => {
+            if (
+              request.url.startsWith(self.location.origin) &&
+              request.destination !== "document"
+            ) {
+              const clone = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(request, clone);
+              });
+            }
+            return networkResponse;
+          })
+          .catch(() => {
+            if (request.mode === "navigate") {
+              return caches.match("/offline.html");
+            }
+          })
+      );
+    })
+  );
 });
