@@ -1,36 +1,51 @@
 {
-  "name": "Wallory",
+  "name": "Wallory: Sweeten Your Walls with Joy! 😊",
   "short_name": "Wallory",
   "description": "Wallory is your ultimate destination for discovering and customizing breathtaking wallpapers from Unsplash. Browse diverse categories, apply filters for your devices.",
   "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "title": "Wallory",
+  "orientation": "portrait",
+  "lang": "en-US",
+  "dir": "ltr",
+  "prefer_related_applications": false,
   "background_color": "#ffffff",
   "theme_color": "#615fff",
   "icons": [
     {
-      "src": "/favicons/android-chrome-192x192.png",
+      "src": "/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/favicons/android-chrome-512x512.png",
+      "src": "/icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "/favicons/apple-touch-icon.png",
+      "src": "/icons/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/narrow.jpg",
+      "type": "image/jpg",
+      "sizes": "720x1366",
+      "form_factor": "narrow"
     },
     {
-      "src": "/favicons/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicons/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
+      "src": "/screenshots/wide.jpg",
+      "type": "image/jpg",
+      "sizes": "1351x645",
+      "form_factor": "wide"
     }
   ]
 }
