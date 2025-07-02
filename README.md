@@ -12,7 +12,15 @@ Discover stunning wallpapers from Unsplash with **Wallory**—your ultimate dest
 
 ## 📸 Screenshots
 
-![Narrow Screenshot](/public/screenshots/narrow.jpg) | ![Wide Screenshot](/public/screenshots/wide.jpg)
+| Mobile View                                          |
+| ---------------------------------------------------- |
+| ![Narrow Screenshot](/public/screenshots/narrow.jpg) |
+
+---
+
+| Desktop View                                     |
+| ------------------------------------------------ |
+| ![Wide Screenshot](/public/screenshots/wide.jpg) |
 
 ### Try Wallory Now
 
