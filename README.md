@@ -12,16 +12,20 @@ Discover stunning wallpapers from Unsplash with **Wallory**—your ultimate dest
 
 ## 📸 Screenshots
 
-| Mobile View                                          |
-| ---------------------------------------------------- |
-| ![Narrow Screenshot](/public/screenshots/narrow.jpg) |
+### Mobile View
+
+<p style="text-align: center;">
+  <img src="/public/screenshots/narrow.jpg" alt="Narrow Screenshot" width="300">
+</p>
 
 ---
 
-| Desktop View                                     |
-| ------------------------------------------------ |
-| ![Wide Screenshot](/public/screenshots/wide.jpg) |
+### Desktop View
 
-### Try Wallory Now
+<p style="text-align: center;">
+  <img src="/public/screenshots/wide.jpg" alt="Wide Screenshot" width="600">
+</p>
+
+## Try Wallory Now
 
 Visit [wallory.netlify.app](https://wallory.netlify.app/) to start exploring wallpapers instantly!
