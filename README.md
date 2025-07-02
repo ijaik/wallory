@@ -41,6 +41,6 @@ Start exploring stunning wallpapers instantly!
 
 ## 📃 License
 
-This project is released into the public domain under the [Unlicense](UNLICENSE).
+This project is released into the public domain under the [Unlicense](LICENSE.txt).
 
 You are free to use, modify, and distribute it without any restrictions.
