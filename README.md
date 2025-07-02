@@ -41,6 +41,6 @@ Start exploring stunning wallpapers instantly!
 
 ## 📃 License
 
-This project is released into the public domain under the [Unlicense](LICENSE.txt).
+This project is licensed under the [MIT License](LICENSE.txt) © 2025 [Jai](https://github.com/ijaik).
 
-You are free to use, modify, and distribute it without any restrictions.
+> Note: This app uses the [Unsplash API](https://unsplash.com/developers). Be sure to follow their attribution and usage guidelines.
