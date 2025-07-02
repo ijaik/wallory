@@ -1,9 +1,7 @@
-const CACHE_NAME = "wallory-cache-v2";
+const CACHE_NAME = "wallory-cache-v1.1";
 const urlsToCache = [
   "/",
   "/manifest.json",
-  "/index.html",
-  "/offline.html",
   "/icons/favicon.ico",
   "/icons/apple-touch-icon.png",
   "/icons/favicon-32x32.png",
@@ -53,24 +51,18 @@ self.addEventListener("fetch", (event) => {
     caches.match(request).then((cachedResponse) => {
       return (
         cachedResponse ||
-        fetch(request)
-          .then((networkResponse) => {
-            if (
-              request.url.startsWith(self.location.origin) &&
-              request.destination !== "document"
-            ) {
-              const clone = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(request, clone);
-              });
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            if (request.mode === "navigate") {
-              return caches.match("/offline.html");
-            }
-          })
+        fetch(request).then((networkResponse) => {
+          if (
+            request.url.startsWith(self.location.origin) &&
+            request.destination !== "document"
+          ) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
+          return networkResponse;
+        })
       );
     })
   );
