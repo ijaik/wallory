@@ -1,31 +1,46 @@
-# Wallory
+# 🎨 Wallory – Elevate Your Screen
 
-Discover stunning wallpapers from Unsplash with **Wallory**—your ultimate destination for personalizing your devices with high-quality images! Browse diverse categories, search for themes that inspire you, and customize your phone, tablet, or desktop effortlessly.
+Discover breathtaking wallpapers with **Wallory**, your go-to destination for personalizing your devices with high-resolution images from **Unsplash**. Whether you're into minimalism, nature, anime, or abstract art, Wallory makes it effortless to find and set wallpapers that inspire you.
 
-## ✨ Features
+---
 
-- **Explore Categories**: Dive into a variety of wallpaper collections, including Abstract, Nature, Anime, and more.
-- **Search Themes**: Find the perfect wallpaper by searching for your favorite themes or keywords.
-- **High-Quality Images**: Powered by Unsplash, all wallpapers are free and high-resolution.
-- **Progressive Web App (PWA)**: Install Wallory on your device for a seamless, app-like experience.
-- **Dark Mode**: Switch to dark mode for a comfortable viewing experience.
+## ✨ Key Features
+
+- 🌈 **Explore by Category**  
+  Browse curated collections including **Abstract**, **Nature**, **Anime**, and more.
+
+- 🔍 **Smart Theme Search**  
+  Quickly find wallpapers by entering themes, moods, or keywords.
+
+- 🖼️ **Stunning Quality**  
+  All images are sourced from **Unsplash**, ensuring beautiful, high-resolution wallpapers—completely free.
+
+- 📱 **Progressive Web App (PWA)**  
+  Install Wallory on your device for a sleek, app-like experience.
+
+- 🌙 **Dark Mode**  
+  Enjoy a comfortable browsing experience with an elegant dark theme.
+
+---
 
 ## 📸 Screenshots
 
-| Mobile View | Desktop View |
-| ----------- | ------------ |
+| Mobile View                                                                    | Desktop View                                                                  |
+| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| <img src="/public/screenshots/narrow.jpg" alt="Mobile Screenshot" width="300"> | <img src="/public/screenshots/wide.jpg" alt="Desktop Screenshot" width="600"> |
 
-|
+---
 
-<p style="text-align: center;">
-  <img src="/public/screenshots/narrow.jpg" alt="Narrow Screenshot" width="300">
-</p>
- | 
-<p style="text-align: center;">
-  <img src="/public/screenshots/wide.jpg" alt="Wide Screenshot" width="600">
-</p>
- |
+## 🚀 Try Wallory Now
 
-## Try Wallory Now
+👉 [**wallory.netlify.app**](https://wallory.netlify.app/)
 
-Visit [wallory.netlify.app](https://wallory.netlify.app/) to start exploring wallpapers instantly!
+Start exploring stunning wallpapers instantly!
+
+---
+
+## 📃 License
+
+This project is released into the public domain under the [Unlicense](UNLICENSE).
+
+You are free to use, modify, and distribute it without any restrictions.
