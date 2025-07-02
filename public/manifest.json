@@ -10,6 +10,12 @@
     "window-controls-overlay",
     "standalone"
   ],
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
   "title": "Wallory",
   "orientation": "portrait",
   "lang": "en-US",
