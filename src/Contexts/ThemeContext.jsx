@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 export const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -19,9 +19,8 @@ export const ThemeProvider = ({ children }) => {
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
+  const value = useMemo(() => ({ isDarkMode, toggleDarkMode }), [isDarkMode]);
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };
