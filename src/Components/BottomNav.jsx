@@ -1,11 +1,15 @@
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { RiSearchLine, RiSearchFill } from "react-icons/ri";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { NavLink, useLocation } from "react-router";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { ThemeContext } from "../Contexts/ThemeContext";
+import { gsap } from "gsap";
 function BottomNav() {
   const location = useLocation();
+  const iconRef = useRef(null);
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+  const [currentIcon, setCurrentIcon] = useState(isDarkMode ? "dark" : "light");
   const [activeNav, setActiveNav] = useState(() => {
     return localStorage.getItem("activeNav") || "home";
   });
@@ -44,7 +48,32 @@ function BottomNav() {
       clearTimeout(timeout);
     };
   }, []);
-  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+  useEffect(() => {
+    if (iconRef.current) {
+      const icon = iconRef.current;
+      gsap.set(icon, { rotation: 0, scale: 1, x: 0 });
+      const tl = gsap.timeline();
+      tl.to(icon, {
+        rotation: isDarkMode ? 180 : -180,
+        scale: 0.5,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }).to(
+        icon,
+        {
+          rotation: isDarkMode ? 360 : -360,
+          scale: 1,
+          duration: 0.5,
+          ease: "back.out(1.5)",
+        },
+        0.5
+      );
+    }
+  }, [isDarkMode]);
+  const handleToggle = () => {
+    setCurrentIcon(isDarkMode ? "light" : "dark");
+    toggleDarkMode();
+  };
   return (
     <nav className="bottom-nav fixed z-30 left-1/2 bottom-[25px] transform -translate-x-1/2 bg-indigo-500 dark:bg-indigo-950 rounded-full transition-all duration-250 ease-linear">
       <ul className="flex justify-evenly items-center">
@@ -66,16 +95,21 @@ function BottomNav() {
             )}
           </NavLink>
         </li>
-        <li className="py-[5px] px-[5vw] sm:px-[2.5vw]">
-          <DarkModeSwitch
-            checked={isDarkMode}
-            onChange={toggleDarkMode}
-            className="darkmode-cursor hover:bg-indigo-400 dark:hover:bg-indigo-800 rounded-full px-2 py-2"
-            sunColor="white"
-            moonColor="white"
-            size={48}
-            style={{ cursor: "default" }}
-          />
+        <li
+          className="py-[5px] px-[5vw] sm:px-[2.5vw] transition-all duration-300 ease-in-out relative"
+          onClick={handleToggle}
+        >
+          {isDarkMode ? (
+            <MdDarkMode
+              ref={iconRef}
+              className="text-white w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400"
+            />
+          ) : (
+            <MdLightMode
+              ref={iconRef}
+              className="text-white w-12 h-12 dark:hover:bg-indigo-800 rounded-full px-2 py-2 hover:bg-indigo-400"
+            />
+          )}
         </li>
       </ul>
     </nav>
