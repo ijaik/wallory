@@ -108,24 +108,6 @@ const Customize = () => {
       setError("Failed to download original image.");
     }
   };
-  const ImageCanvas = (
-    <div className="relative">
-      {photo ? (
-        <img
-          src={photo.urls.regular}
-          alt={photo.alt_description || "Selected wallpaper"}
-          className="w-full h-auto object-contain transition-all duration-300"
-          style={{ filter }}
-          onLoad={() => setIsLoaded(true)}
-          crossOrigin="anonymous"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse">
-          <div className="w-full h-full bg-gradient-to-r from-gray-200 dark:from-gray-700 via-gray-300 dark:via-gray-600 to-gray-200 dark:to-gray-700 animate-shimmer" />
-        </div>
-      )}
-    </div>
-  );
   return (
     <>
       <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -143,9 +125,22 @@ const Customize = () => {
             {error}
           </div>
         )}
-        <main className="p-6 flex flex-col md:flex-row gap-6 items-start justify-center">
-          <div className="canvas-area flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
-            {ImageCanvas}
+        <main className="p-6 flex flex-col md:flex-row gap-6 items-center justify-center">
+          <div className="canvas-area bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            {photo ? (
+              <img
+                src={photo.urls.regular}
+                alt={photo.alt_description || "Selected wallpaper"}
+                className="w-full h-full md:h-[70vh] transition-all duration-300"
+                style={{ filter }}
+                onLoad={() => setIsLoaded(true)}
+                crossOrigin="anonymous"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse">
+                <div className="w-full h-full bg-gradient-to-r from-gray-200 dark:from-gray-700 via-gray-300 dark:via-gray-600 to-gray-200 dark:to-gray-700 animate-shimmer" />
+              </div>
+            )}
             {photo && (
               <p className="text-sm text-center text-gray-500 dark:text-gray-400 p-4">
                 Photo by{" "}
@@ -168,7 +163,7 @@ const Customize = () => {
               </p>
             )}
           </div>
-          <div className="customize-container w-full md:w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:sticky top-6">
+          <div className="customize-container w-full md:w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 flex items-center gap-2.5">
               Customize
               <span
