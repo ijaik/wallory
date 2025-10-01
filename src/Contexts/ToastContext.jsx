@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 const ToastContext = createContext();
 export function ToastProvider({ children }) {
   const [showDownloadToast, setShowDownloadToast] = useState(false);
@@ -49,19 +56,19 @@ export function ToastProvider({ children }) {
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
-  const handleCloseDownloadToast = () => {
+  const handleCloseDownloadToast = useCallback(() => {
     localStorage.setItem("hasClosedDownloadToast", "true");
     setShowDownloadToast(false);
     if (!localStorage.getItem("hasClosedInstallToast") && !isInstalled) {
       setShowInstallToast(true);
     }
-  };
-  const handleCloseInstallToast = () => {
+  }, [isInstalled]);
+  const handleCloseInstallToast = useCallback(() => {
     localStorage.setItem("hasClosedInstallToast", "true");
     setShowInstallToast(false);
-  };
-  const handleInstallClick = async () => {
-    if (deferredPrompt && deferredPrompt !== true) {
+  }, []);
+  const handleInstallClick = useCallback(async () => {
+    if (deferredPrompt && typeof deferredPrompt.prompt === "function") {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === "accepted") {
@@ -73,27 +80,38 @@ export function ToastProvider({ children }) {
       localStorage.setItem("isInstallable", "false");
       setShowInstallToast(false);
     }
-  };
-  const triggerToastsAfterIntro = () => {
+  }, [deferredPrompt]);
+  const triggerToastsAfterIntro = useCallback(() => {
     if (!localStorage.getItem("hasClosedDownloadToast")) {
       setShowDownloadToast(true);
     } else if (!localStorage.getItem("hasClosedInstallToast") && !isInstalled) {
       setShowInstallToast(true);
     }
-  };
+  }, [isInstalled]);
+  const memoizedValue = useMemo(
+    () => ({
+      showDownloadToast,
+      showInstallToast,
+      deferredPrompt,
+      isInstalled,
+      handleCloseDownloadToast,
+      handleCloseInstallToast,
+      handleInstallClick,
+      triggerToastsAfterIntro,
+    }),
+    [
+      showDownloadToast,
+      showInstallToast,
+      deferredPrompt,
+      isInstalled,
+      handleCloseDownloadToast,
+      handleCloseInstallToast,
+      handleInstallClick,
+      triggerToastsAfterIntro,
+    ]
+  );
   return (
-    <ToastContext.Provider
-      value={{
-        showDownloadToast,
-        showInstallToast,
-        deferredPrompt,
-        isInstalled,
-        handleCloseDownloadToast,
-        handleCloseInstallToast,
-        handleInstallClick,
-        triggerToastsAfterIntro,
-      }}
-    >
+    <ToastContext.Provider value={memoizedValue}>
       {children}
     </ToastContext.Provider>
   );

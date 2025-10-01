@@ -14,7 +14,6 @@ export const useFetchData = (category, API_KEY, count = 20) => {
     searchCategory.toLowerCase()
   );
   const latestQueries = ["moon", "sunset", "universe"];
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const fetchData = useCallback(async () => {
     const cacheKey = `wallpapers_${searchCategory}`;
     const cachedData = localStorage.getItem(cacheKey);
@@ -41,7 +40,6 @@ export const useFetchData = (category, API_KEY, count = 20) => {
     setError(null);
     try {
       for (const query of queries) {
-        await delay(500);
         const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
           query
         )}&per_page=${perPage}&page=1&order_by=${orderBy}&client_id=${API_KEY}`;
