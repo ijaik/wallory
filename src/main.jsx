@@ -4,11 +4,7 @@ import { BrowserRouter } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "./Contexts/ThemeContext.jsx";
-const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
-  }
-};
+import { registerSW } from "virtual:pwa-register";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
@@ -18,4 +14,6 @@ createRoot(document.getElementById("root")).render(
     </ThemeProvider>
   </StrictMode>
 );
-registerServiceWorker();
+const updateSW = registerSW({
+  immediate: true,
+});
