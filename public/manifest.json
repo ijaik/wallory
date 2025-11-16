@@ -1,0 +1,73 @@
+{
+  "name": "Wallory: Your Wall, Your Story!",
+  "short_name": "Wallory",
+  "description": "Discover and customize stunning wallpapers from Unsplash. Browse diverse categories, apply filters, and personalize your devices with high-quality images.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "orientation": "portrait",
+  "lang": "en-US",
+  "dir": "ltr",
+  "background_color": "#ffffff",
+  "theme_color": "#615fff",
+  "categories": [
+    "lifestyle",
+    "photo"
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Wallpapers",
+      "url": "/explore",
+      "description": "Browse and discover new wallpapers",
+      "icons": [
+        {
+          "src": "/icons/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/narrow.jpg",
+      "type": "image/jpg",
+      "sizes": "720x1366",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/wide.jpg",
+      "type": "image/jpg",
+      "sizes": "1351x645",
+      "form_factor": "wide"
+    }
+  ]
+}

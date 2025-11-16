@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+.darkmode-cursor {
+  cursor: default;
+}
+@media (min-width: 640px) {
+  .darkmode-cursor {
+    cursor: pointer !important;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
