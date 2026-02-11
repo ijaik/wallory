@@ -2,8 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import { mapCategory } from "../utils/map-category";
 export const useFetchData = (category, API_KEY, count = 20) => {
   const [data, setData] = useState(() => {
-    const cached = localStorage.getItem(`wallpapers_${category}`);
-    return cached ? JSON.parse(cached) : [];
+    try {
+      const cached = localStorage.getItem(`wallpapers_${category}`);
+      return cached ? JSON.parse(cached) : [];
+    } catch (e) {
+      console.error("Failed to parse cached data:", e);
+      return [];
+    }
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,7 +16,7 @@ export const useFetchData = (category, API_KEY, count = 20) => {
   const searchCategory = mapCategory(category);
   const specialCategories = ["latest", "trending", "most popular"];
   const isSpecialCategory = specialCategories.includes(
-    searchCategory.toLowerCase()
+    searchCategory.toLowerCase(),
   );
   const latestQueries = ["moon", "sunset", "universe"];
   const fetchData = useCallback(async () => {
@@ -24,8 +29,12 @@ export const useFetchData = (category, API_KEY, count = 20) => {
       cacheTimestamp &&
       Date.now() - parseInt(cacheTimestamp) < cacheDuration
     ) {
-      setData(JSON.parse(cachedData));
-      return;
+      try {
+        setData(JSON.parse(cachedData));
+        return;
+      } catch (e) {
+        console.error("Cache corrupted, fetching fresh data...", e);
+      }
     }
     const queries = isSpecialCategory ? latestQueries : [searchCategory];
     const perPage = count;
@@ -35,30 +44,40 @@ export const useFetchData = (category, API_KEY, count = 20) => {
         searchCategory.toLowerCase() === "trending")
         ? "latest"
         : "relevant";
-    let allPhotos = [];
     setLoading(true);
     setError(null);
     try {
-      for (const query of queries) {
-        const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
-          query
-        )}&per_page=${perPage}&page=1&order_by=${orderBy}&client_id=${API_KEY}`;
-        const response = await fetch(url);
-        if (!response.ok)
-          throw new Error(`Network error: ${response.statusText}`);
-        const result = await response.json();
-        if (isSpecialCategory) {
-          allPhotos = [...allPhotos, ...result.results];
-        } else {
-          allPhotos = result.results.slice(0, count);
-        }
-      }
+      const responses = await Promise.all(
+        queries.map(async (query) => {
+          const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
+            query,
+          )}&per_page=${perPage}&page=1&order_by=${orderBy}&client_id=${API_KEY}`;
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Network error: ${response.statusText}`);
+          }
+          return response.json();
+        }),
+      );
+      let allPhotos = [];
       if (isSpecialCategory) {
+        responses.forEach((result) => {
+          if (result.results) {
+            allPhotos = [...allPhotos, ...result.results];
+          }
+        });
+        const uniquePhotosMap = new Map();
+        allPhotos.forEach((photo) => {
+          if (!uniquePhotosMap.has(photo.id)) {
+            uniquePhotosMap.set(photo.id, photo);
+          }
+        });
+        allPhotos = Array.from(uniquePhotosMap.values());
         let sortedPhotos = allPhotos;
         switch (searchCategory.toLowerCase()) {
           case "latest":
             sortedPhotos = allPhotos.sort(
-              (a, b) => new Date(b.created_at) - new Date(a.created_at)
+              (a, b) => new Date(b.created_at) - new Date(a.created_at),
             );
             break;
           case "trending":
@@ -67,6 +86,10 @@ export const useFetchData = (category, API_KEY, count = 20) => {
             break;
         }
         allPhotos = sortedPhotos.slice(0, count);
+      } else {
+        if (responses[0] && responses[0].results) {
+          allPhotos = responses[0].results.slice(0, count);
+        }
       }
       localStorage.setItem(cacheKey, JSON.stringify(allPhotos));
       localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
